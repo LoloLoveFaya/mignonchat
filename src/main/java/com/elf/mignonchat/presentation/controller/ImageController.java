@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/images")
 public class ImageController {
     private final MignonChatService mignonChatService;
     private final VoteCounterService voteCounterService;
@@ -24,7 +23,12 @@ public class ImageController {
         this.voteCounterService = voteCounterService;
     }
 
-    @GetMapping
+    @GetMapping("/")
+    public ModelAndView redirectToImagesPage() {
+        return new ModelAndView("redirect:/images");
+    }
+
+    @GetMapping("/images")
     public String showCatListPage(Model model) {
         List<Image> images = mignonChatService.getAllCats();
         model.addAttribute("images", images);
