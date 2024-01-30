@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Images</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Mignons Chats</h2>
+
+    <div class="row">
+        <div th:each="image, iterStat : ${images}" class="col-md-4 mb-4">
+            <div class="card">
+                <img th:src="${image.url}" th:alt="${image.id}" class="card-img-top">
+                <div class="card-body">
+                    <p class="card-text">Score: <span th:text="${voteCounterService.getVotesForImage(image.id)}"></span></p>
+                    <form th:action="@{/images/vote/{id}(id=${image.id})}" method="post">
+                        <button type="submit" class="btn btn-primary">Vote</button>
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${iterStat.index != null and iterStat.index % 6 == 5}" class="w-100"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (if needed) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
